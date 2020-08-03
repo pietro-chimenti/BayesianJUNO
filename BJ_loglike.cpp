@@ -9,9 +9,9 @@
 const int    BJ_loglike::BJ_LL_NPARS     = 2;
 const int    BJ_loglike::BJ_LL_NOBS      = 100;
 const double BJ_loglike::BJ_LL_XMAX      = 10.;
-const double BJ_loglike::BJ_LL_INIT_P0   = 1.;
-const double BJ_loglike::BJ_LL_INIT_P1   = 1.;
-
+const double BJ_loglike::BJ_LL_INIT_P0   = 0.5;
+const double BJ_loglike::BJ_LL_INIT_P1   = 0.;
+const double BJ_loglike::BJ_LL_SIGMA     = 1.;
 
 BJ_loglike::BJ_loglike() {
 
@@ -20,16 +20,19 @@ BJ_loglike::BJ_loglike() {
       
   for(int i = 0; i < BJ_LL_NOBS; i++ ){
     bins_x.push_back((i+1)*BJ_LL_XMAX/BJ_LL_NOBS);
-    obs.push_back(bins_x[i]);
+    obs.push_back(f(bins_x[i]));
   }
 }
 
 double BJ_loglike::f(double x){
   // just a silly function for now!
-  return x*(BJ_LL_XMAX-x)*(1-pars[0]*sin(BJ_LL_XMAX*M_PI*(x+pars[1]))); 
+  return x*(BJ_LL_XMAX-x)*(1-pars[0]*sin(M_PI*(x/BJ_LL_XMAX+pars[1]))); 
 }
 
 double BJ_loglike::ll() {
-  return 1;
+  double ll = 0;
+  for(int i = 0; i < BJ_LL_NOBS; i++)
+    ll += (f(bins_x[i])-obs[i])*(f(bins_x[i])-obs[i]);
+  return ll;
 }
 

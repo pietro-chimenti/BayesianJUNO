@@ -51,6 +51,7 @@ dict_$(PROGRAM).cpp: $(HDRS)
 
 clean:
 	@rm -f $(OBJS) $(PROGRAM).so dict_*
+	@rm -r __pycache__
  
 
 #------------------------------------------------------------------------
