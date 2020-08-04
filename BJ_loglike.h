@@ -15,8 +15,15 @@ class BJ_loglike {
   */
   double ll();
 
+  /**
+   * @brief The function we want to fit
+   */
   double f(double x);
 
+  /**
+   * @brief Generate random sample
+   */
+  void generateRandom( unsigned int seed);
   // setters and getters for observables and parameters
 
   void   setPar(int i, double par) { pars[i]=par; }

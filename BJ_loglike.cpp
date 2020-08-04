@@ -2,6 +2,7 @@
 
 #define _USE_MATH_DEFINES
 #include <cmath> 
+#include <random>
 
 #include <iostream>
 
@@ -32,7 +33,16 @@ double BJ_loglike::f(double x){
 double BJ_loglike::ll() {
   double ll = 0;
   for(int i = 0; i < BJ_LL_NOBS; i++)
-    ll += (f(bins_x[i])-obs[i])*(f(bins_x[i])-obs[i]);
+    ll += (f(bins_x[i])-obs[i])*(f(bins_x[i])-obs[i])/(2*BJ_LL_SIGMA*BJ_LL_SIGMA);
   return ll;
 }
+
+void   BJ_loglike::generateRandom( unsigned int seed) {
+  // for now just random gaussian fluctuation in each bin
+  std::default_random_engine gen(seed);
+  std::normal_distribution<double> nd(0.0,BJ_LL_SIGMA);
+  for(int i = 0; i < BJ_LL_NOBS; i++)
+    obs[i] = f(bins_x[i])+nd(gen);
+}
+
 

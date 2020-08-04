@@ -27,3 +27,13 @@ plt.show()
 print("ll=",bja.ll())
 bja.setPar(0,1.)
 print("ll=",bja.ll())
+
+# test a random generation
+bja.generateRandom(19780126)
+for x_ind in np.arange(0,n_points,1):
+    x_range[x_ind]= bja.getXBin(int(x_ind))
+    y_vals[x_ind] = bja.getOb(int(x_ind))
+plt.plot(x_range, y_vals)
+plt.show()
+
+
