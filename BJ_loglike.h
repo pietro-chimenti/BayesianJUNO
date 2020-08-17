@@ -43,7 +43,13 @@ class BJ_loglike {
   static const double BJ_LL_SIGMA;
 
   static const double BJ_LL_INIT_P0;
+  static const double BJ_LL_P0_MIN;
+  static const double BJ_LL_P0_MAX;
+
   static const double BJ_LL_INIT_P1;
+  static const double BJ_LL_P1_MIN;
+  static const double BJ_LL_P1_MAX;
+
 
   private:
 
